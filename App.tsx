@@ -1,17 +1,37 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { Provider } from 'react-redux';
-import { store } from './src/redux/store';
-import AppNavigator from './src/navigation/AppNavigator';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Provider} from 'react-redux';
+import {store} from './src/redux/store';
 
-const App = () => {
+import HomeScreen from './src/screens/HomeScreen';
+
+const Stack = createNativeStackNavigator();
+
+function App(): JSX.Element {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <AppNavigator />
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: '#f4511e',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{title: 'Mon Frigo'}}
+          />
+        </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   );
-};
+}
 
 export default App;
